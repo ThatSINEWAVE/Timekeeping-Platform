@@ -16,7 +16,7 @@ A comprehensive timekeeping platform designed to facilitate efficient time manag
 
 1. Ensure you have Python installed on your system.
 2. Clone this repository to your local machine.
-3. Install the required dependencies listed in the project's `requirements.txt` file.
+3. Install the required dependencies
 4. Set up your `credentials.json` and `secret.json` files with your specific configuration and secret keys.
 
 ### Usage
