@@ -36,7 +36,7 @@ python main_app.py
 - `null.html`: A placeholder or error page for handling unexpected navigation.
 
 ## Logs
-The platform automatically generates and maintains log files, such as log_23_10_2023.txt, to record application events and user sessions.
+The platform automatically generates and maintains log files, such as `log_23_10_2023.txt`, to record application events and user sessions.
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details.
