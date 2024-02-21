@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLATFORMA</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <style>
+        body, select, button, input {
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background-image: url('{{ url_for('static', filename='images/main1.png') }}');
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        color: #fff;
+        margin: 0;
+        padding-bottom: 0px; /* Adjust as needed */
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: calc(100% - 250px); /* Subtracting the width of the sidebar */
+        margin-left: 250px; /* Same as the width of the sidebar */
+        padding-left: 20px; /* Additional spacing from the sidebar */
+        height: 100vh;
+    }
+
+    .logo {
+        width: 200px;
+        margin-bottom: 50px;
+    }
+
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+        .info-link {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .info-link:hover {
+        color: #8affa9;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .logo {
+            width: 150px;
+        }
+    }
+
+    .banner {
+        background: rgba(19, 19, 19, 0.8);
+        color: #fff;
+        padding: 10px 20px;
+        width: 500px;
+        text-align: center;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+    }
+
+    .banner h3, .banner p {
+        margin: 5px 0;
+        text-align: center;
+        white-space: normal;
+        overflow: visible;
+    }
+
+    .banner h3 {
+        font-size: 24px;
+    }
+
+    .banner b {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .banner p {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .box {
+        background: rgba(20, 20, 20, 0.9);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        width: 300px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    input, button {
+        margin: 10px 0;
+        color: #000;
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 15px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    input::placeholder {
+        color: #666;
+    }
+
+    input[name="checkout_time"] {
+        margin-top: 0;
+    }
+
+    button {
+        background-color: #f2f2f2;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    button:hover {
+        background-color: #e0e0e0;
+    }
+
+    button[type="submit"] {
+        margin-top: 20px;
+    }
+
+    .feedbackMessage {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 18px;
+        background: rgba(30, 30, 30, 0.8);
+        padding: 10px 20px;
+        border-radius: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #motivationalBanner {
+        margin-top: 20px;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+    }
+
+    .spinner {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    br {
+        display: none;
+    }
+
+    .select2-container--open {
+        z-index: 10000;
+    }
+
+    .select2-container--default .select2-selection--single {
+        margin-bottom: 0;
+        border-bottom: none;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        background-color: #f2f2f2;
+        color: #000;
+        height: 40px;
+        font-size: 16px;
+        padding: 0;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        padding-left: 10px;
+        padding-right: 10px;
+        line-height: 38px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 40px;
+        right: 8px;
+    }
+
+    .select2-container .select2-dropdown {
+        border-top: none;
+        border-radius: 0 0 15px 15px;
+    }
+
+    .select2-container--default .select2-results__option {
+        color: #000;
+    }
+
+    .select2-container--default .select2-results__option--highlighted[aria-selected] {
+        background-color: #e0e0e0;
+        color: #000;
+    }
+
+    .select2-search--dropdown .select2-search__field {
+        border-radius: 15px;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: #0d0d48;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 16px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .footer span {
+        font-weight: bold;
+        margin: 0 5px;
+    }
+
+    .whatsapp-link {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .whatsapp-link:hover {
+        color: #8affa9;
+    }
+
+    .footer p {
+        margin: 5px 0;
+        font-weight: bold;
+    }
+
+    .admin-detail {
+    margin-bottom: 5px;
+    }
+        /* New styles */
+    .option-box {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .option-button {
+        background-color: #f2f2f2;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 48%; /* to account for some margin */
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .option-button:hover {
+        background-color: #e0e0e0;
+    }
+    .option-box {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 400px;
+        gap: 20px; /* added to space out the buttons */
+    }
+
+    .button.option-button {
+        color: #000; /* Black text color */
+        text-decoration: none; /* Remove underline */
+        background-color: #f2f2f2;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+        font-size: 16px;
+        width: 48%;
+        display: inline-block; /* Added this to display as inline block */
+    }
+
+    .button.option-button:hover {
+        background-color: #e0e0e0;
+    }
+
+    .hamburger {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 10000; /* Ensure it's above other elements */
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px; /* Initially hidden */
+        width: 250px; /* Width of the sidebar */
+        height: 100%;
+        background: rgba(20, 20, 20, 0.9);
+        overflow-y: auto;
+        transition: 0.3s; /* Smooth transition */
+        z-index: 9999; /* Ensure it's above other elements but below the hamburger */
+        display: flex; /* Flexbox container */
+        flex-direction: column; /* Stack children vertically */
+        justify-content: center; /* Center children vertically */
+        padding: 0 20px; /* Sides padding */
+    }
+
+    .sidebar a {
+        padding: 10px 15px;
+        text-decoration: none;
+        font-size: 24px;
+        color: #fff;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+        color: #8affa9;
+    }
+
+    @media only screen and (min-width: 769px) {
+        #sidebar {
+            left: 0;
+    }
+
+        #hamburger {
+            display: none;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .hamburger {
+            display: block; /* Show the hamburger icon on mobile */
+        }
+
+        .admin-details {
+            flex-direction: column;  /* Stack elements vertically */
+            align-items: flex-start; /* Align items to the start */
+        }
+        .container {
+            width: 100%; /* Take up full width on mobile */
+            margin-left: 0; /* Reset margin */
+            padding-left: 20px;
+            padding-right: 20px;
+            align-items: flex-start; /* Align items to the start */
+        }
+
+        .logo {
+            width: 150px;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .banner, .box {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .footer {
+            font-size: 12px;
+        }
+
+        .banner h3 {
+            font-size: 20px;
+        }
+
+        .banner p {
+            font-size: 14px;
+        }
+
+        input, select, button {
+            font-size: 14px;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="logo-container">
+        <a href="/">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+        </a>
+    </div>
+    <!-- Hamburger Icon -->
+    <div id="hamburger" class="hamburger">
+        &#9776;
+    </div>
+    <!-- Sidebar Menu -->
+    <div id="sidebar" class="sidebar">
+        <!-- Adding the logo to the sidebar -->
+        <div class="logo-container">
+            <a href="/">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+            </a>
+        </div>
+
+        <a href="/">Acasa</a>
+        <a href="/pontaj">Ponteaza tura</a>
+        <a href="/pauze">Seteaza o pauza</a>
+        <a href="LINK">Tabel de pauze</a>
+        <a href="LINK">Tabel de pontaj</a>
+        <a href="/admin_login">Administratie</a>
+        <a href="/info">Informatii</a>
+        <a href="/contact">Contact</a>
+    </div>
+    <div class="banner">
+        <h3>Bine ati venit!</h3>
+        <p>Platforma <b>NAME</b>va ureaza o zi buna in continuare si mult spor la munca!</p>
+        <p><a href="/info" class="info-link">Pentru mai multe informatii apasati aici.</a></p>
+    </div>
+    <div class="box">
+        <div class="option-box">
+            <a href="/pontaj" class="button option-button">PONTAJ</a>
+            <a href="/pauze" class="button option-button">PAUZE</a>
+        </div>
+    </div>
+    <div class="banner" id="motivationalBanner">
+        <h3>Mesajul zilei pentru tine</h3>
+        <p id="randomMessage"></p>
+    </div>
+    <script>
+    document.getElementById('hamburger').onclick = function() {
+        const sidebar = document.getElementById('sidebar');
+        const currentLeft = parseInt(getComputedStyle(sidebar).left);
+        if (currentLeft < 0) {
+            sidebar.style.left = '0';
+        } else {
+            sidebar.style.left = '-300px';
+        }
+    }
+
+    // Array of motivational messages and tips
+    const motivationalMessages = [
+        "Fiecare zi este o nouă oportunitate de a te îmbunătăți. Nu uita să profiti de fiecare moment și să îți urmezi visurile.",
+        "Credința în sine este cel mai puternic combustibil. Atunci când crezi în tine, poți depăși orice obstacol și atinge orice țintă.",
+        "Fiecare pas înainte te apropie de succes. Chiar dacă pasul este mic, el te duce mai aproape de obiectivele tale.",
+        "Munca în echipă face visul să funcționeze. Împreună, putem realiza mai mult decât am putea vreodată singuri.",
+        "Determinarea este cheia către orice ușă a succesului. Cu voință și perseverență, orice este posibil.",
+        "Eșecul este doar o oportunitate de a începe din nou, de data aceasta mai inteligent. Învață din greșeli și continuă să avansezi.",
+        "Când viața îți oferă lămâi, fă din ele limonadă. Transformă orice provocare într-o oportunitate.",
+        "Nu există scurtături către orice loc merită să mergi. Drumul cel mai dificil adesea duce la cele mai frumoase destinații.",
+        "Fă ceea ce poți, cu ceea ce ai, unde ești. Nu aștepta momentul perfect, folosește momentul și fă-l perfect.",
+        "Perseverența este cheia. Chiar și cea mai lungă călătorie începe cu un singur pas.",
+        "Nimic nu este imposibil pentru o inimă determinată și un spirit neînfricat.",
+        "Viața nu se măsoară în numărul de respirații pe care le avem, ci în momentele care ne taie respirația.",
+        "Visează măreț, muncește din greu și nu te da niciodată bătut.",
+        "Cele mai bune lucruri din viață sunt la capătul zonei tale de confort.",
+        "Orice provocare este o oportunitate de a învăța, de a crește și de a avansa.",
+        "Succesul este rezultatul muncii asidue, învățării din eșec și perseverenței.",
+        "Zâmbetul tău poate schimba lumea. Poate nu toată lumea, dar lumea cuiva.",
+        "Dacă astăzi este dificil, mâine va fi mai bine. Dacă mâine va fi dificil, poimâine va fi lumina.",
+        "Ambiția este drumul către succes, persistența este vehiculul în care ajungi acolo.",
+        "Atunci când te confrunți cu o decizie, fă-o. Indecizia este inamicul progresului.",
+        "Poți să găsești inspirație în orice, iar dacă nu o găsești, privește din nou.",
+        "Este în ordine să ai visuri mari și speranțe mărețe. Este acolo unde începe totul.",
+        "Nu subestima niciodată puterea unui gând pozitiv. Poate ridica spiritele, schimba direcția unei zile și influența întregul curs al vieții tale.",
+        "O atitudine pozitivă nu rezolvă toate problemele, dar va irita suficient de mulți oameni pentru a face efortul valoros.",
+        "Orice zi în care înveți ceva nou este o zi care merită trăită.",
+        "În fiecare dimineață avem două opțiuni: a continua să dormim cu visele noastre sau a ne trezi și a le urmări.",
+        "Succesul este suma eforturilor repetate, zi de zi.",
+        "Viața este 10% ceea ce ne se întâmplă și 90% modul în care reacționăm la asta.",
+        "Dacă nu te confrunți cu obstacole, s-ar putea să nu fie pe drumul corect.",
+        "În loc să te gândești la ceea ce îți lipsește, încearcă să te gândești la ceea ce ai și care altora le lipsește.",
+        "Gândește-te la greutăți ca la oportunități. Cu cât mai multe greutăți întâlnești, cu atât devii mai puternic.",
+        "Dacă aștepți momentul perfect, s-ar putea să aștepți pentru totdeauna. Fă acum momentul perfect.",
+        "Când îți dai seama că vrei să petreci restul vieții cu ambițiile tale, vrei ca restul vieții să înceapă cât mai curând posibil.",
+        "Dacă ceea ce faci nu te aduce mai aproape de unde vrei să ajungi, este timpul să faci o schimbare.",
+        "Nu poți atinge cerul dacă nu ești dispus să te dezlipești de pământ.",
+        "Orice succes începe cu decizia de a încerca.",
+        "Uneori eșecul este doar un semn că trebuie să rămâi perseverent.",
+        "Fă astăzi un pas înainte, indiferent cât de mic, către visele tale.",
+        "În loc să te temi de ceea ce ar putea merge prost, fii entuziasmat de ceea ce ar putea merge bine.",
+        "În fiecare zi, ai oportunitatea de a scrie un nou capitol în povestea ta. Fă-l memorabil.",
+        "Uneori, cele mai mărețe realizări provin din cele mai mari provocări.",
+        "Viața nu se măsoară în numărul de respirații pe care le avem, ci în momentele care ne taie respirația.",
+        "Acționează astăzi ca și cum ai fi persoana pe care vrei să devii mâine.",
+        "Dacă tot te gândești la un lucru, fă-l. Pasiunea este un indiciu clar că ești pe drumul cel bun.",
+        "Marele succes este adesea precedat de eșecuri aparente. Nu renunța.",
+        "Pentru a ajunge departe, trebuie să începi de undeva. Fiecare pas contează.",
+        "Cu fiecare zi nouă, ai o șansă să devii o versiune mai bună a ta.",
+        "Când te ridici după fiecare cădere, demonstrezi puterea și reziliența spiritului tău.",
+        "Nu lăsa trecutul să îți definească prezentul. Fiecare zi este un nou început.",
+        "De multe ori, bariera dintre tine și succes este doar mentalitatea ta."
+        ];
+
+    // Function to display a random message from the array
+    function displayRandomMessage() {
+        const randomIndex = Math.floor(Math.random() * motivationalMessages.length);
+        const randomMessage = motivationalMessages[randomIndex];
+        document.getElementById("randomMessage").innerText = randomMessage;
+    }
+
+    // Call the function when the page loads
+    displayRandomMessage();
+
+    // The rest of your existing script content goes here
+    const form = document.getElementById('recordForm');
+    const feedbackBanner = document.getElementById('feedbackBanner');
+    const feedbackMessage = document.getElementById('feedbackMessage');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+        loadingOverlay.style.display = 'flex';
+
+        let formData = new FormData(form);
+
+        let response = await fetch('/record_time', {
+            method: 'POST',
+            body: formData
+        });
+
+        let result = await response.json();
+        loadingOverlay.style.display = 'none';
+        feedbackMessage.innerHTML = result.message;
+        feedbackBanner.style.display = 'flex';
+    }
+
+    $(document).ready(function() {
+        $('select').select2({
+            dropdownAutoWidth: true,
+            dropdownParent: $('#recordForm'),
+            dropdownPosition: 'auto'
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+2023-10-23 14:20:13 - TESTING THE LOGGING SYSTEM
+2023-10-23 14:20:13 - LOGGING SYSTEM IS RUNNING
+2023-10-23 14:20:13 - TESTING THE LOGGING SYSTEM
+2023-10-23 14:20:13 - LOGGING SYSTEM IS RUNNING
+ * Serving Flask app 'app'
+ * Debug mode: on
+2023-10-23 14:20:14
+2023-10-23 14:20:14 - TESTING THE LOGGING SYSTEM
+2023-10-23 14:20:14 - LOGGING SYSTEM IS RUNNING
+2023-10-23 14:20:14 - TESTING THE LOGGING SYSTEM
+2023-10-23 14:20:14 - LOGGING SYSTEM IS RUNNING
+Received request to record time for employee: Sophia
+Check-in time: 
+Check-out time: 18:30
+Found employee's row: 3
+Found today's column for date: 23/10/2023, column: 8
+User can't set checkout time without checking in first.
+Received request to record time for employee: Sophia
+Check-in time: 9:30
+Check-out time: 
+Found employee's row: 3
+Found today's column for date: 23/10/2023, column: 8
+Check-in time recorded successfully: 9:30 / 14:21
+2023-10-23 14:28:22
+2023-10-23 14:28:23
+2023-10-23 14:28:23 - TESTING THE LOGGING SYSTEM
+2023-10-23 14:28:23 - LOGGING SYSTEM IS RUNNING
+2023-10-23 14:28:23 - TESTING THE LOGGING SYSTEM
+2023-10-23 14:28:23 - LOGGING SYSTEM IS RUNNING
+ * Serving Flask app 'app'
+ * Debug mode: on
+2023-10-23 14:28:23
+2023-10-23 14:28:24
+2023-10-23 14:28:24 - TESTING THE LOGGING SYSTEM
+2023-10-23 14:28:24 - LOGGING SYSTEM IS RUNNING
+2023-10-23 14:28:24 - TESTING THE LOGGING SYSTEM
+2023-10-23 14:28:24 - LOGGING SYSTEM IS RUNNING
+Received request to record time for employee: Sophia
+Check-in time: 
+Check-out time: 
+Found employee's row: 3
+Found today's column for date: 23/10/2023, column: 8
+User didn't provide check-in or check-out time.
+Received request to record time for employee: Sophia
+Check-in time: 9:30
+Check-out time: 
+Found employee's row: 3
+Found today's column for date: 23/10/2023, column: 8
+User has already checked in at 9:30 / 14:21.

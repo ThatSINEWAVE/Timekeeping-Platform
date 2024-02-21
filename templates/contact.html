@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTACT</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+    body, select, button, input {
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background-image: url('{{ url_for('static', filename='images/info1.png') }}');
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        color: #fff;
+        margin: 0;
+        padding-bottom: 120px;
+    }
+
+    .faq-item {
+        text-align: center;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: calc(100% - 250px); /* Subtracting the width of the sidebar */
+        margin-left: 250px; /* Same as the width of the sidebar */
+        padding-left: 20px; /* Additional spacing from the sidebar */
+    }
+
+    .logo {
+        padding-top: 40px;
+        width: 200px;
+        margin-bottom: 50px;
+    }
+
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+        .info-link {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .info-link:hover {
+        color: #8affa9;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .logo {
+            width: 150px;
+        }
+    }
+
+    .banner {
+        background: rgba(19, 19, 19, 0.8);
+        color: #fff;
+        padding: 10px 20px;
+        width: 500px;
+        text-align: center;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+    }
+
+    .banner h3, .banner p {
+        margin: 5px 0;
+        text-align: center;
+        white-space: normal;
+        overflow: visible;
+    }
+
+    .banner h3 {
+        font-size: 24px;
+    }
+
+    .banner b {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .banner p {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .box {
+        background: rgba(20, 20, 20, 0.9);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        width: 700px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    input, button {
+        margin: 10px 0;
+        color: #000;
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 15px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    input::placeholder {
+        color: #666;
+    }
+
+    input[name="checkout_time"] {
+        margin-top: 0;
+    }
+
+    button {
+        background-color: #f2f2f2;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    button:hover {
+        background-color: #e0e0e0;
+    }
+
+    button[type="submit"] {
+        margin-top: 20px;
+    }
+
+    .feedbackMessage {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 18px;
+        background: rgba(30, 30, 30, 0.8);
+        padding: 10px 20px;
+        border-radius: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+    }
+
+    .spinner {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    br {
+        display: none;
+    }
+
+    .select2-container--open {
+        z-index: 10000;
+    }
+
+    .select2-container--default .select2-selection--single {
+        margin-bottom: 0;
+        border-bottom: none;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        background-color: #f2f2f2;
+        color: #000;
+        height: 40px;
+        font-size: 16px;
+        padding: 0;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        padding-left: 10px;
+        padding-right: 10px;
+        line-height: 38px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 40px;
+        right: 8px;
+    }
+
+    .select2-container .select2-dropdown {
+        border-top: none;
+        border-radius: 0 0 15px 15px;
+    }
+
+    .select2-container--default .select2-results__option {
+        color: #000;
+    }
+
+    .select2-container--default .select2-results__option--highlighted[aria-selected] {
+        background-color: #e0e0e0;
+        color: #000;
+    }
+
+    .select2-search--dropdown .select2-search__field {
+        border-radius: 15px;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: #0d0d48;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 16px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .footer span {
+        font-weight: bold;
+        margin: 0 5px;
+    }
+
+    .whatsapp-link {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .whatsapp-link:hover {
+        color: #8affa9;
+    }
+
+    .footer p {
+        margin: 5px 0;
+        font-weight: bold;
+    }
+
+    .admin-detail {
+    margin-bottom: 5px;
+    }
+
+    .hamburger {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 10000; /* Ensure it's above other elements */
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px; /* Initially hidden */
+        width: 250px; /* Width of the sidebar */
+        height: 100%;
+        background: rgba(20, 20, 20, 0.9);
+        overflow-y: auto;
+        transition: 0.3s; /* Smooth transition */
+        z-index: 9999; /* Ensure it's above other elements but below the hamburger */
+        display: flex; /* Flexbox container */
+        flex-direction: column; /* Stack children vertically */
+        justify-content: center; /* Center children vertically */
+        padding: 0 20px; /* Sides padding */
+    }
+
+    .sidebar a {
+        padding: 10px 15px;
+        text-decoration: none;
+        font-size: 24px;
+        color: #fff;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+        color: #8affa9;
+    }
+
+    @media only screen and (min-width: 769px) {
+        #sidebar {
+            left: 0;
+    }
+
+        #hamburger {
+            display: none;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .hamburger {
+            display: block; /* Show the hamburger icon on mobile */
+        }
+
+        .admin-details {
+            flex-direction: column;  /* Stack elements vertically */
+            align-items: flex-start; /* Align items to the start */
+        }
+        .container {
+            width: 100%; /* Take up full width on mobile */
+            margin-left: 0; /* Reset margin */
+            padding-left: 20px;
+            padding-right: 20px;
+            align-items: flex-start; /* Align items to the start */
+        }
+
+        .logo {
+            width: 150px;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .banner, .box {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .footer {
+            font-size: 12px;
+        }
+
+        .banner h3 {
+            font-size: 20px;
+        }
+
+        .banner p {
+            font-size: 14px;
+        }
+
+        input, select, button {
+            font-size: 14px;
+        }
+    }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="logo-container">
+        <a href="/">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+        </a>
+    </div>
+        <!-- Hamburger Icon -->
+    <div id="hamburger" class="hamburger">
+        &#9776;
+    </div>
+    <!-- Sidebar Menu -->
+    <div id="sidebar" class="sidebar">
+        <!-- Adding the logo to the sidebar -->
+        <div class="logo-container">
+            <a href="/">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+            </a>
+        </div>
+
+        <a href="/">Acasa</a>
+        <a href="/pontaj">Ponteaza tura</a>
+        <a href="/pauze">Seteaza o pauza</a>
+        <a href="LINK">Tabel de pauze</a>
+        <a href="LINK">Tabel de pontaj</a>
+        <a href="/admin_login">Administratie</a>
+        <a href="/info">Informatii</a>
+        <a href="/contact">Contact</a>
+    </div>
+    <div class="box">
+    <h1>⚠️ Contact administratie ⚠️</h1>
+    <div class="faq-item">
+        <h3>Probleme techine</h3>
+        <p>In cazul in care intampinati probleme techine cu platforma noastra va rugam sa luati legatura cu administratorul platformei sau cu seful dumneavoastra de echipa pentru a putea identifica si remedia problema cat mai rapid.</p>
+        <a href="https://wa.me/" target="_blank" class="whatsapp-link">Administrator de platforma</a>
+    </div>
+    <div class="faq-item">
+        <h3>Probleme de inarzieri, absente si pauze</h3>
+        <p>In cazul in care ati uitat sa va pontati pe o zi anume sau nu ati trecut nimic in tabel va rugam sa luati legatura cu seful echipei dumneavoastra pentru a putea remedia problema cat mai curand.</p>
+        <a href="https://wa.me/" target="_blank" class="whatsapp-link">Sef de echipa Marketing</a>
+        <p></p>
+        <a href="https://wa.me/" target="_blank" class="whatsapp-link">Sef de echipa Call Center</a>
+        <p></p>
+        <a href="https://wa.me/" target="_blank" class="whatsapp-link">Sef de echipa Depozit</a>
+        <p></p>
+    </div>
+</div>
+</div>
+<script>
+    document.getElementById('hamburger').onclick = function() {
+        const sidebar = document.getElementById('sidebar');
+        const currentLeft = parseInt(getComputedStyle(sidebar).left);
+        if (currentLeft < 0) {
+            sidebar.style.left = '0';
+        } else {
+            sidebar.style.left = '-300px';
+        }
+    }
+</script>
+</body>
+</html>
