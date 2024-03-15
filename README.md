@@ -10,6 +10,8 @@ A comprehensive timekeeping platform designed to facilitate efficient time manag
 - **Historical Logs**: View and analyze past time logs for better time management insights.
 - **Contact Form**: Integrated contact form for user support and inquiries.
 
+## ☕ [Support my work on Ko-Fi](https://ko-fi.com/thatsinewave)
+
 ## Getting Started
 
 ### To get the platform running locally, follow these steps:
