@@ -1,6 +1,10 @@
+<div align="center">
+
 # Timekeeping Platform ( Proof of Concept )
 
 A comprehensive timekeeping platform designed to facilitate efficient time management and tracking. This platform allows users to log their work hours, take pauses, and review their time logs with ease.
+
+</div>
 
 ## Features
 
@@ -10,7 +14,11 @@ A comprehensive timekeeping platform designed to facilitate efficient time manag
 - **Historical Logs**: View and analyze past time logs for better time management insights.
 - **Contact Form**: Integrated contact form for user support and inquiries.
 
+<div align="center">
+
 ## ☕ [Support my work on Ko-Fi](https://ko-fi.com/thatsinewave)
+
+</div>
 
 ## Getting Started
 
