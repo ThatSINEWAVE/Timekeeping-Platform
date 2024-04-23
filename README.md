@@ -31,7 +31,7 @@ A comprehensive timekeeping platform designed to facilitate efficient time manag
 
 <div align="center">
 
-# [Join my discord server!](https://discord.gg/2nHHHBWNDw)
+# [Join my discord server](https://discord.gg/2nHHHBWNDw)
 
 </div>
 
