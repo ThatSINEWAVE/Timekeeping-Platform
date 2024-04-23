@@ -29,6 +29,12 @@ A comprehensive timekeeping platform designed to facilitate efficient time manag
 3. Install the required dependencies
 4. Set up your `credentials.json` and `secret.json` files with your specific configuration and secret keys.
 
+<div align="center">
+
+# [Join my discord server!](https://discord.gg/2nHHHBWNDw)
+
+</div>
+
 ### Usage
 
 Run `main_app.py` to start the web application. Navigate to the local URL provided in your terminal to access the platform.
